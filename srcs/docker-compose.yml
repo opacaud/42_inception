@@ -1,0 +1,168 @@
+version: '3'
+
+services:
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      - inception
+    volumes:
+      - /Users/opacaud/data:/usr/share/mariadb
+
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    restart: unless-stopped
+    networks:
+      - inception
+    ports:
+      - 443:443
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    restart: unless-stopped
+    networks:
+      - inception
+    volumes:
+      - /Users/opacaud/data:/usr/share/wordpress
+    depends_on:
+      - mariadb
+
+networks:
+  inception:
+
+
+# -----------------------------------------
+
+# LISTER CONTAINERS
+
+# docker ps -a
+
+# -----------------------------------------
+
+# LISTER IMAGES
+
+# docker image ls
+
+# -----------------------------------------
+
+# VOIR HISTORIQUE IMAGE
+
+# docker history image_ID
+
+# -----------------------------------------
+
+# CREER ET/OU LANCER UN CONTAINER
+
+# docker create --name container_name image:version
+# docker start container_name
+
+# or
+
+# docker run -tid (tty interactive detach) -p 8080(container):80(localhost) --name container_name image:version
+
+# -----------------------------------------
+
+# INSPECTER UN CONTAINER
+
+# docker inspect container_name
+
+# -----------------------------------------
+
+# EXECUTER UN CONTAINER
+
+# docker exec -ti (tty) container_name sh (shell, app tu run when container started)
+
+# -----------------------------------------
+
+# DELETE A CONTAINER
+
+# docker rm -f container_name
+
+# -----------------------------------------
+
+# CREER UN VOLUME DIRECTEMENT DANS RUN ET CHOISIR L'EMPLACEMENT DANS HOST
+
+# docker run -tid -p 8080:80 -v /srv/data/nginx/to/share/on/host:/usr/share/nginx/html/to/share/in/container --name container_name image:version
+
+# (Meme si le container container_name est suppr, si on le recree avec les memes volumes, ca refonctionnera.)
+
+# -----------------------------------------
+
+# GERER LES VOLUMES
+
+# docker volume create/inspect/ls/prune/rm
+
+# docker volume create myvolume
+# docker run -tid -p 8080:80 --name container_name --mount source=myvolume/created/on/host,target=/usr/share/nginx/html/in/container nginx:latest
+# (volume on host can be found with docker volume inspect myvolume)
+
+# docker rm -f container_name
+# (mandatory to delete)
+
+# docker volume rm myvolume
+
+# -----------------------------------------
+
+# VARIABLES D'ENV
+
+# docker run -tid --name container_name --env MYVARIABLE="123456" image:version
+
+# docker run -tid --name container_name --env-file filename image:version
+
+# docker run -tid --name container_name --hostname chosen_hostname image:version
+
+# -----------------------------------------
+
+# CREATE AN IMAGE FROM A CONTAINER
+
+# docker exec -ti container_name app_to_start
+
+# docker commit -m "message" container_ID container_name:version (ex: xavki:v1.0)
+
+# -----------------------------------------
+
+# DELETE AN IMAGE
+
+# docker rm -f container_name (using the image)
+
+# docker image rm image_ID
+
+# -----------------------------------------
+
+# CREATE AN IMAGE FROM A DOCKERFILE (AND DELETE IT)
+
+# FROM image:version
+# RUN cmd arg
+
+# docker build -t image_name:v1.0 .
+
+# docker rm -f container_name (using the image)
+
+# docker rmi image_name
+
+# -----------------------------------------
+
+# DOCKER COMPOSE
+
+# docker-compose build
+
+# docker-compose up (= build + run)
+
+# docker-compose up -d (detached mode)
+
+# docker-compose ps (state of services)
+
+# docker-compose start (starts of services)
+
+# docker-compose stop (stops of services)
+
+# docker-compose rm
+
+# docker-compose scale service_name=3 (launches 3 instances)
+
+# docker-compose pull (updates images)
+
+# docker-compose logs
