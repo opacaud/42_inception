@@ -1,5 +1,18 @@
 -- https://mariadb.com/kb/en/sql-statements/
 
+
+
+
+-- CLEANING?
+-- DELETE FROM	mysql.user WHERE User='';
+-- DROP DATABASE test;
+-- DELETE FROM mysql.db WHERE Db='test';
+-- DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+
+
+
+
+
 -- https://mariadb.com/kb/en/create-database/
 -- "CREATE DATABASE creates a database with the given name."
 -- "When the IF NOT EXISTS clause is used, MariaDB will return a warning instead of an error if the specified database already exists."
@@ -43,6 +56,6 @@ FLUSH PRIVILEGES;
 
 -- https://mariadb.com/kb/en/alter-user/
 -- "The ALTER USER statement modifies existing MariaDB accounts."
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'Pizza6fromages';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD';
 
 FLUSH PRIVILEGES;
