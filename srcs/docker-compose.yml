@@ -73,7 +73,7 @@ networks:
 
 # EXECUTER UN CONTAINER
 
-# docker exec -ti (tty) container_name sh (shell, app tu run when container started)
+# docker exec -ti (tty) container_name sh (shell, app to run once container started)
 
 # -----------------------------------------
 

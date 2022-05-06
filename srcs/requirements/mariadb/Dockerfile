@@ -15,9 +15,11 @@ COPY setup/ /tmp/mariadb/
 RUN mkdir -p /run/mysql \
 && apt-get install -y mariadb-server mariadb-client \
 && service mysql start \
+&& chown -R mysql:mysql /run/mysqld \
 && mariadb -u root < /tmp/mariadb/setup.sql \
 && sed 's/bind-address = 127.0.0.1/bind-address = 0.0.0.0/' -i /etc/mysql/mariadb.conf.d/50-server.cnf \
 && mkdir tmpsql \
+&& chown -R mysql:mysql /var/lib/mysql \
 && cp -r /var/lib/mysql/* tmpsql
 
 # open port 3306
