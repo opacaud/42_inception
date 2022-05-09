@@ -1,17 +1,13 @@
 -- https://mariadb.com/kb/en/sql-statements/
 
+-- https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
+-- cleaning default data
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 
-
-
--- CLEANING?
--- DELETE FROM	mysql.user WHERE User='';
--- DROP DATABASE test;
--- DELETE FROM mysql.db WHERE Db='test';
--- DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-
-
-
-
+FLUSH PRIVILEGES;
 
 -- https://mariadb.com/kb/en/create-database/
 -- "CREATE DATABASE creates a database with the given name."
@@ -31,6 +27,7 @@ SET PASSWORD FOR 'opacaud'@'localhost' = PASSWORD('Pizza4fromages');
 -- priv_type: "The ALL PRIVILEGES privilege grants all available privileges. [...] You can use ALL instead of ALL PRIVILEGES."
 -- priv_level: " * | *.* | db_name.* | db_name.tbl_name | tbl_name | db_name.routine_name [...] Database privileges priv_type are granted using db_name.* for priv_level, or using just * to use default database."
 -- user_specification: "username [authentication_option]"
+-- authentication_option: IDENTIFIED BY 'password'
 GRANT ALL PRIVILEGES ON wordpress.* TO 'opacaud'@'localhost' IDENTIFIED BY 'Pizza4fromages';
 GRANT ALL ON wordpress.* TO 'opacaud'@'%' IDENTIFIED BY 'Pizza4fromages';
 
@@ -56,6 +53,8 @@ FLUSH PRIVILEGES;
 
 -- https://mariadb.com/kb/en/alter-user/
 -- "The ALTER USER statement modifies existing MariaDB accounts."
-ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD';
+-- ALTER USER 'root'@'localhost' IDENTIFIED BY 'MYSQL_ROOT_PWD';
+
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PWD');
 
 FLUSH PRIVILEGES;
