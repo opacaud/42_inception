@@ -105,6 +105,10 @@ export $(shell sed 's/=.*//' srcs/.env)
 all: up
 
 up:
+	sudo mkdir -p /home/opacaud/data/mariadb
+	echo "/home/opacaud/data/mariadb folder created"
+	sudo mkdir -p /home/opacaud/data/wordpress_nginx
+	echo "/home/opacaud/data/wordpress_nginx folder created"
 	docker-compose -f ${YML} up -d --build
 
 down:

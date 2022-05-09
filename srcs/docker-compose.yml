@@ -1,49 +1,75 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+
 version: '3'
+
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#build
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#container_name
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#env_file
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#networks
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#restart
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#depends_on
 
 services:
   mariadb:
     build: requirements/mariadb
     container_name: mariadb
-    restart: unless-stopped
-    networks:
-      - inception
-    volumes:
-      - /Users/opacaud/data:/usr/share/mariadb
     env_file:
       - .env
+    networks:
+      - inception
+    restart: unless-stopped
+    volumes:
+      - mariadb_volume:/var/lib/mysql
 
-    # build: 
-      # context: requirements/mariadb
-      # args:
-        # - MYSQL_ROOT_PWD
-  
   nginx:
     build: requirements/nginx
     container_name: nginx
-    restart: unless-stopped
+    env_file:
+      - .env
     networks:
       - inception
-    volumes:
-      - /Users/opacaud/data:/usr/share/wordpress
     ports:
-      - 443:443
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - wordpress_nginx_volume:/var/www/wordpress_nginx
 
   wordpress:
     build: requirements/wordpress
     container_name: wordpress
-    restart: unless-stopped
-    networks:
-      - inception
-    volumes:
-      - /Users/opacaud/data:/usr/share/wordpress
     depends_on:
       - mariadb
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: unless-stopped
+    volumes:
+      - wordpress_nginx_volume:/var/www/wordpress_nginx
+
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#network-configuration-reference
 
 networks:
   inception:
 
-# volumes:
-  # db:
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference
+# https://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/
+
+volumes:
+  mariadb_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: /home/opacaud/data/mariadb
+  wordpress_nginx_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: /home/opacaud/data/wordpress_nginx
 
 
 
@@ -181,3 +207,15 @@ networks:
 # docker-compose pull (updates images)
 
 # docker-compose logs
+
+
+
+
+
+
+
+
+    # build: 
+      # context: requirements/mariadb
+      # args:
+        # - MYSQL_ROOT_PWD
