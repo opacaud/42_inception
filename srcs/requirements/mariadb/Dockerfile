@@ -14,13 +14,13 @@ WORKDIR /tmp/mariadb/
 COPY setup/ /tmp/mariadb/
 
 # replacing in the script because it is not expanded on its own...
-RUN sed -i "s/MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/setup.sql \
+RUN sed -i "s/\$MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/setup.sql \
 && mkdir -p /run/mysql \
 && apt-get install -y mariadb-server mariadb-client \
 && service mysql start \
 && chown -R mysql:mysql /run/mysqld \
 # && mariadb -v -u root --password=$MYSQL_ROOT_PWD < /tmp/mariadb/setup.sql \
-&& mariadb -v -u root -p < /tmp/mariadb/setup.sql \
+&& mariadb -v -u root < /tmp/mariadb/setup.sql \
 && sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/' -i /etc/mysql/mariadb.conf.d/50-server.cnf \
 # && mkdir tmpsql \
 && chown -R mysql:mysql /var/lib/mysql
