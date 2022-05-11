@@ -212,15 +212,3 @@ volumes:
 # docker-compose pull (updates images)
 
 # docker-compose logs
-
-
-
-
-
-
-
-
-    # build: 
-      # context: requirements/mariadb
-      # args:
-        # - MYSQL_ROOT_PWD

@@ -114,9 +114,16 @@ up:
 down:
 	docker-compose -f ${YML} down
 
+help:
+	@echo "usage: make [all] [up] [down] [fclean] [re]"
+	@echo "make / make all / make up = docker-compose -f ${YML} up -d --build"
+	@echo "make down = docker-compose -f ${YML} down"
+	@echo "make fclean = docker-compose -f ${YML} down --rmi all"
+	@echo "make re = fclean + all"
+
 fclean:
 	docker-compose -f ${YML} down --rmi all
 
 re:	fclean all
 
-.PHONY: all up down fclean re
+.PHONY: all up down help fclean re
