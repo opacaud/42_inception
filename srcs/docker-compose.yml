@@ -17,6 +17,8 @@ services:
       context: requirements/mariadb
       args:
         - MYSQL_ROOT_PWD
+        - MYSQL_BOSS_PWD
+        - MYSQL_USER_PWD
     container_name: mariadb
     env_file:
       - .env

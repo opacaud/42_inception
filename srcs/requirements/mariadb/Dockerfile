@@ -8,30 +8,31 @@ RUN apt-get update \
 WORKDIR /tmp/mariadb/
 
 # creating an env variable
-# ARG MYSQL_ROOT_PWD=Pizza6fromages
+ARG MYSQL_ROOT_PWD
+ARG MYSQL_BOSS_PWD
+ARG MYSQL_USER_PWD
 
 # copying everything in the setup folder on the host machine in the working directory
 COPY setup/ /tmp/mariadb/
 
 # replacing in the script because it is not expanded on its own...
+# install mariadb
+# start sql
+# config sql
+# allow remote connections to mysql server
 RUN sed -i "s/\$MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/setup.sql \
+&& sed -i "s/\$MYSQL_BOSS_PWD/$MYSQL_BOSS_PWD/g" /tmp/mariadb/setup.sql \
+&& sed -i "s/\$MYSQL_USER_PWD/$MYSQL_USER_PWD/g" /tmp/mariadb/setup.sql \
 && mkdir -p /run/mysql \
 && apt-get install -y mariadb-server mariadb-client \
 && service mysql start \
 && chown -R mysql:mysql /run/mysqld \
-# && mariadb -v -u root --password=$MYSQL_ROOT_PWD < /tmp/mariadb/setup.sql \
-&& mariadb -v -u root < /tmp/mariadb/setup.sql \
+&& mariadb -u root --password=$MYSQL_ROOT_PWD < /tmp/mariadb/setup.sql \
 && sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/' -i /etc/mysql/mariadb.conf.d/50-server.cnf \
-# && mkdir tmpsql \
 && chown -R mysql:mysql /var/lib/mysql
-# && cp -r /var/lib/mysql/* tmpsql
 
-# open port 3306
+# expose port 3306
 EXPOSE 3306
 
-# command to launch in the mariadb container
-
-# CMD cp -r tmpsql/* /var/lib/mysql/ \
-# && mysqld
-
+# command to launch IN the mariadb container: sql daemon to react to commands
 CMD mysqld
