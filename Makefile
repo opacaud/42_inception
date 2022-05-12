@@ -1,54 +1,3 @@
-# NAME		= inception
-
-# SRCS_DIR	= .
-# INCLUDES	= .
-# CXX			= clang++
-# CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
-# DEP_FLAGS	= -MMD -MP
-
-# OBJS_DIR	= objs
-
-# SRCS		= main.cpp
-
-# OBJS		= $(addprefix ${OBJS_DIR}/,${SRCS:.cpp=.o})
-
-# DEP			= ${OBJS:.o=.d}
-
-# all:		${NAME}
-
-# ${NAME}:	${OBJS}
-# 				${CXX} -I${INCLUDES} ${CXXFLAGS} ${DEP_FLAGS} ${OBJS} -o $@
-
-# ${OBJS_DIR}/%.o:${SRCS_DIR}/%.cpp
-# 				@mkdir -p ${@D}
-# 				${CXX} ${CXXFLAGS} ${DEP_FLAGS} -c $< -o $@
-
-# clean:
-# 				rm -rf ${OBJS_DIR}
-
-# fclean:			clean
-# 				rm -f ${NAME}
-
-# re:				fclean all
-
-# .PHONY:			all clean fclean re
-
-# -include ${DEP}
-
-
-
-
-
-
-
-# sudo docker-compose up -d
-
-
-
-
-
-
-
 # # THIS_FILE := $(lastword $(MAKEFILE_LIST))
 # .PHONY: help build up start down destroy stop restart logs logs-api ps login-timescale login-api db-shell
 # # help:
@@ -97,6 +46,36 @@
 
 
 
+
+SHELL=/bin/bash
+
+# to see all colors, run
+# bash -c 'for c in {0..255}; do tput setaf $c; tput setaf $c | cat -v; echo =$c; done'
+# the first 15 entries are the 8-bit colors
+
+# define standard colors
+ifneq (,$(findstring xterm,${TERM}))
+	BLACK        := $(shell tput -Txterm setaf 0)
+	RED          := $(shell tput -Txterm setaf 1)
+	GREEN        := $(shell tput -Txterm setaf 2)
+	YELLOW       := $(shell tput -Txterm setaf 3)
+	BLUE  		 := $(shell tput -Txterm setaf 4)
+	PURPLE       := $(shell tput -Txterm setaf 5)
+	LIGHTBLUE    := $(shell tput -Txterm setaf 6)
+	WHITE        := $(shell tput -Txterm setaf 7)
+	RESET 		 := $(shell tput -Txterm sgr0)
+else
+	BLACK        := ""
+	RED          := ""
+	GREEN        := ""
+	YELLOW       := ""
+	BLUE  		 := ""
+	PURPLE       := ""
+	LIGHTBLUE    := ""
+	WHITE        := ""
+	RESET        := ""
+endif
+
 YML	= srcs/docker-compose.yml
 
 include srcs/.env
@@ -104,26 +83,69 @@ export $(shell sed 's/=.*//' srcs/.env)
 
 all: up
 
+ls:
+	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+	@echo "${GREEN}---> IMAGES${RESET}"
+	@docker image ls
+	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+	@docker container ls
+
+# https://docs.docker.com/compose/reference/up/
 up:
 	@sudo mkdir -p /home/opacaud/data/mariadb
-	@echo "/home/opacaud/data/mariadb folder created"
+	@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder ready${RESET}"
 	@sudo mkdir -p /home/opacaud/data/wordpress_nginx
-	@echo "/home/opacaud/data/wordpress_nginx folder created"
-	docker-compose -f ${YML} up -d --build
+	@echo -e "\n${GREEN}/home/opacaud/data/wordpress_nginx folder ready${RESET}"
+	@echo -e "\n${GREEN}docker-compose up${RESET}\n"
+	@docker-compose -f ${YML} up --detach --build --remove-orphans
+	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+	@docker image ls
+	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+	@docker container ls
 
-down:
-	docker-compose -f ${YML} down
+# https://docs.docker.com/compose/reference/down/
+down: ls
+	@echo -e "\n${GREEN}docker-compose down${RESET}\n"
+	@docker-compose -f ${YML} down
+	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+	@docker image ls
+	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+	@docker container ls
 
-help:
-	@echo "usage: make [all] [up] [down] [fclean] [re]"
-	@echo "make / make all / make up = docker-compose -f ${YML} up -d --build"
-	@echo "make down = docker-compose -f ${YML} down"
-	@echo "make fclean = docker-compose -f ${YML} down --rmi all"
-	@echo "make re = fclean + all"
+# https://docs.docker.com/compose/reference/down/
+clean: ls
+	@echo -e "\n${GREEN}docker-compose down --rmi all --remove-orphans${RESET}\n"
+	@docker-compose -f ${YML} down --rmi all --remove-orphans
+	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+	@docker image ls
+	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+	@docker container ls
 
-fclean:
-	docker-compose -f ${YML} down --rmi all
+# https://docs.docker.com/engine/reference/commandline/system_prune/
+fclean: ls
+	@echo -e "\n${GREEN}docker-compose -f ${YML} down --rmi all --volumes --remove-orphans${RESET}\n"
+	@docker-compose -f ${YML} down --rmi all --volumes --remove-orphans
+	@echo -e "\n${GREEN}docker system prune -f --all --volumes${RESET}\n"
+	@docker system prune -f --all --volumes
+	@sudo rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx
+	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+	@docker image ls
+	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+	@docker container ls
 
 re:	fclean all
 
-.PHONY: all up down help fclean re
+help:
+	@echo -e "\n${RED}usage: make [all] [up] [down] [fclean] [re]${RESET}\n"
+	@echo "${GREEN}make / make all / make up${RESET} = docker-compose -f ${YML} up --detach --build --remove-orphans"
+	@echo "${GREEN}make ls${RESET} = docker image ls + docker container ls"
+	@echo "${GREEN}make down${RESET} = docker-compose -f ${YML} down"
+	@echo "${GREEN}make clean${RESET} = docker-compose -f ${YML} down --rmi all --remove-orphans"
+	@echo "${GREEN}make fclean${RESET} = clean + docker system prune -f --all --volumes"
+	@echo -e "${GREEN}make re${RESET} = fclean + all\n"
+
+.PHONY: all up ls down clean fclean re help
