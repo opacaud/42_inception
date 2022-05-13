@@ -41,18 +41,18 @@ services:
     volumes:
       - wordpress_nginx_volume:/var/www/wordpress_nginx
 
-  wordpress:
-    build: requirements/wordpress
-    container_name: wordpress
-    depends_on:
-      - mariadb
-    env_file:
-      - .env
-    networks:
-      - inception
-    restart: unless-stopped
-    volumes:
-      - wordpress_nginx_volume:/var/www/wordpress_nginx
+  # wordpress:
+  #   build: requirements/wordpress
+  #   container_name: wordpress
+  #   depends_on:
+  #     - mariadb
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - inception
+  #   restart: unless-stopped
+  #   volumes:
+  #     - wordpress_nginx_volume:/var/www/wordpress_nginx
 
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#network-configuration-reference
 

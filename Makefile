@@ -84,58 +84,87 @@ export $(shell sed 's/=.*//' srcs/.env)
 all: up
 
 ls:
-	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
-	@echo "${GREEN}---> IMAGES${RESET}"
+		@echo -e "\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}---------------------------------------LS---------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+		@echo -e "${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
-	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+		@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
 	@docker container ls
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-------------------------------------END LS-------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
 
 # https://docs.docker.com/compose/reference/up/
 up:
 	@sudo mkdir -p /home/opacaud/data/mariadb
-	@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder ready${RESET}"
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}---------------------------------------UP---------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+		@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder ready${RESET}"
 	@sudo mkdir -p /home/opacaud/data/wordpress_nginx
-	@echo -e "\n${GREEN}/home/opacaud/data/wordpress_nginx folder ready${RESET}"
-	@echo -e "\n${GREEN}docker-compose up${RESET}\n"
+		@echo -e "\n${GREEN}/home/opacaud/data/wordpress_nginx folder ready${RESET}"
+		@echo -e "\n${GREEN}docker-compose up --detach --build --remove-orphans${RESET}\n"
 	@docker-compose -f ${YML} up --detach --build --remove-orphans
-	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
-	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
-	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+		@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
 	@docker container ls
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-------------------------------------END UP-------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
 
 # https://docs.docker.com/compose/reference/down/
 down: ls
-	@echo -e "\n${GREEN}docker-compose down${RESET}\n"
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------DOWN--------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+		@echo -e "\n${GREEN}docker-compose down${RESET}\n"
 	@docker-compose -f ${YML} down
-	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
-	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
-	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+		@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
 	@docker container ls
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}------------------------------------END DOWN------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
 
 # https://docs.docker.com/compose/reference/down/
 clean: ls
-	@echo -e "\n${GREEN}docker-compose down --rmi all --remove-orphans${RESET}\n"
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-------------------------------------CLEAN--------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+		@echo -e "\n${GREEN}docker-compose down --rmi all --remove-orphans${RESET}\n"
 	@docker-compose -f ${YML} down --rmi all --remove-orphans
-	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
-	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
-	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+		@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
 	@docker container ls
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-----------------------------------END CLEAN------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
 
 # https://docs.docker.com/engine/reference/commandline/system_prune/
 fclean: ls
-	@echo -e "\n${GREEN}docker-compose -f ${YML} down --rmi all --volumes --remove-orphans${RESET}\n"
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-------------------------------------FCLEAN-------------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+		@echo -e "\n${GREEN}docker-compose -f ${YML} down --rmi all --volumes --remove-orphans${RESET}\n"	
 	@docker-compose -f ${YML} down --rmi all --volumes --remove-orphans
-	@echo -e "\n${GREEN}docker system prune -f --all --volumes${RESET}\n"
+		@echo -e "\n${GREEN}docker system prune -f --all --volumes${RESET}\n"
 	@docker system prune -f --all --volumes
 	@sudo rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx
-	@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
-	@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
+		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
+		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
-	@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
+		@echo -e "\n${GREEN}---> CONTAINERS${RESET}\n"
 	@docker container ls
+		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
+		@echo -e "${GREEN}-----------------------------------END FCLEAN-----------------------------------${RESET}"
+		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
 
 re:	fclean all
 
