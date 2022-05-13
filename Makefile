@@ -101,9 +101,9 @@ up:
 		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
 		@echo -e "${GREEN}---------------------------------------UP---------------------------------------${RESET}"
 		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
-		@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder ready${RESET}"
+		@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder on host machine ready${RESET}"
 	@sudo mkdir -p /home/opacaud/data/wordpress_nginx
-		@echo -e "\n${GREEN}/home/opacaud/data/wordpress_nginx folder ready${RESET}"
+		@echo -e "\n${GREEN}/home/opacaud/data/wordpress_nginx folder on host machine ready${RESET}"
 		@echo -e "\n${GREEN}docker-compose up --detach --build --remove-orphans${RESET}\n"
 	@docker-compose -f ${YML} up --detach --build --remove-orphans
 		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
@@ -156,6 +156,7 @@ fclean: ls
 	@docker-compose -f ${YML} down --rmi all --volumes --remove-orphans
 		@echo -e "\n${GREEN}docker system prune -f --all --volumes${RESET}\n"
 	@docker system prune -f --all --volumes
+		@echo -e "\n\n${GREEN}rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx${RESET}\n"
 	@sudo rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx
 		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
 		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
