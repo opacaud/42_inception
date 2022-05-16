@@ -157,7 +157,7 @@ fclean: ls
 		@echo -e "\n${GREEN}docker system prune -f --all --volumes${RESET}\n"
 	@docker system prune -f --all --volumes
 		@echo -e "\n\n${GREEN}rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx${RESET}\n"
-	@sudo rm -rf /home/opacaud/data/mariadb /home/opacaud/data/wordpress_nginx
+	@sudo rm -rf /home/opacaud/data/mariadb /home/opacaud/data/mariadb_volume /home/opacaud/data/wordpress_nginx /home/opacaud/data/wordpress_nginx_volume
 		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
 		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
