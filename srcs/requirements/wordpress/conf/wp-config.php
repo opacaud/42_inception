@@ -50,14 +50,15 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-// define( 'AUTH_KEY',         'put your unique phrase here' );
-// define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-// define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-// define( 'NONCE_KEY',        'put your unique phrase here' );
-// define( 'AUTH_SALT',        'put your unique phrase here' );
-// define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-// define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-// define( 'NONCE_SALT',       'put your unique phrase here' );
+// https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10
+define('AUTH_KEY',         'w)cHyos]~COTTB}Fz:&KNDpCIU]zSR{f Ymn(UppiEn@hXF@=2S-D`{O&CXnd!01');
+define('SECURE_AUTH_KEY',  '9Xh*=.a6%Ph,/k$iXqZ5`)5#>,N@| V&E8, 0V!,0O,([|@ ?ggz6nmhzKP}kLEO');
+define('LOGGED_IN_KEY',    'fn|@]p,s54.s>Gxc0.PX21Zzp)#-)N[U};M-|m3EqH<08`5)^,,FGE|6A CGJ$nk');
+define('NONCE_KEY',        'YJso !B@J`+$&B<BS$+[7-a-z^(>h2-PS-12bKyx|GRv[+#xFgPN$k#PKehQnp?Y');
+define('AUTH_SALT',        '5{@6so+xiV1w=_b1|Xtxb@()j^9Z~gZ>lT1PcL-41VL+*EfT.*RWJ-COrMgE3jJG');
+define('SECURE_AUTH_SALT', 'pb?2;=NI3ZCo0^_Q}xDqF>7tV`GedXl}ww{hsjD n_8/R(;I-90P-M1&?||/x4v(');
+define('LOGGED_IN_SALT',   ']7q2002!l!K?{Q5yKx7xM$qT24p_4ktHEGJvFV|e#0{Z~LZy#F7mP)TT-:^IQ+LJ');
+define('NONCE_SALT',       'Tpno j}7,FE- q3W%9>aa3e~HgX_*@ybkq2/&j:EtJmM#*g2v]nah93<z+&5$Hvg');
 
 /**#@-*/
 
@@ -67,7 +68,7 @@ define( 'DB_COLLATE', '' );
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
  */
-// $table_prefix = 'wp_';
+$table_prefix = 'wp_';
 
 /**
  * For developers: WordPress debugging mode.
@@ -81,7 +82,7 @@ define( 'DB_COLLATE', '' );
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-// define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
@@ -90,9 +91,9 @@ define( 'DB_COLLATE', '' );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
-// if ( ! defined( 'ABSPATH' ) ) {
-	// define( 'ABSPATH', __DIR__ . '/' );
-// }
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
 
 /** Sets up WordPress vars and included files. */
-// require_once ABSPATH . 'wp-settings.php';
+require_once ABSPATH . 'wp-settings.php';
