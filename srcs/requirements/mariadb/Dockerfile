@@ -16,10 +16,10 @@ ARG MYSQL_USER_PWD
 COPY conf/ /tmp/mariadb/
 
 # replacing in the script because it is not expanded on its own...
-# install mariadb
-# start sql
-# config sql
-# allow remote connections to mysql server
+# installing mariadb
+# starting sql
+# configuring sql
+# allowing remote connections to mysql server
 RUN sed -i "s/\$MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/conf.sql \
 && sed -i "s/\$MYSQL_BOSS_PWD/$MYSQL_BOSS_PWD/g" /tmp/mariadb/conf.sql \
 && sed -i "s/\$MYSQL_USER_PWD/$MYSQL_USER_PWD/g" /tmp/mariadb/conf.sql \

@@ -28,16 +28,18 @@ define( 'DB_NAME', 'wordpress' );
 define( 'DB_USER', 'opacaud' );
 
 /** Database password */
-define( 'DB_PASSWORD', '$MYSQL_USER_PWD' );
+define( 'DB_PASSWORD', 'Pizza4fromages' );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'mariadb' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
 
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+define( 'WP_ALLOW_REPAIR', true );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -97,3 +99,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
+?>
