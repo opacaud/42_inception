@@ -13,7 +13,7 @@ version: '3'
 
 services:
   mariadb:
-    build: 
+    build:
       context: requirements/mariadb
       args:
         - MYSQL_ROOT_PWD
@@ -28,28 +28,30 @@ services:
     volumes:
       - mariadb_volume:/var/lib/mysql
 
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    # env_file:
+    #   - .env
+    networks:
+      - inception
+    restart: unless-stopped
+    volumes:
+      - wordpress_volume:/var/www/wordpress
+
   nginx:
     build: requirements/nginx
     container_name: nginx
+    depends_on:
+      - wordpress
     # env_file:
     #   - .env
     networks:
       - inception
     ports:
       - "443:443"
-    restart: unless-stopped
-    volumes:
-      - wordpress_volume:/var/www/wordpress
-
-  wordpress:
-    build: requirements/wordpress
-    container_name: wordpress
-    depends_on:
-      - mariadb
-    env_file:
-      - .env
-    networks:
-      - inception
     restart: unless-stopped
     volumes:
       - wordpress_volume:/var/www/wordpress

@@ -38,7 +38,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 && ln -sf /dev/stderr /var/log/nginx/error.log \
 && rm -f /etc/nginx/sites-enabled/default \
 && rm -f /etc/nginx/sites-available/default \
-&& mv /tmp/nginx/nginx.conf /etc/nginx/sites-available \
+&& mv /tmp/nginx/nginx.conf /etc/nginx/sites-available/ \
 && ln -sf /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 
 # checking that the syntax of configuration file is okay

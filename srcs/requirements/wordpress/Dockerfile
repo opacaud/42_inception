@@ -8,7 +8,7 @@
 # && apt-get install -y mariadb-client php7.3 php-cgi php-common php-fpm php-pear php-mbstring php-zip php-net-socket php-gd php-xml-util php-gettext php-mysql php-bcmath curl \
 # && mkdir -p /run/php
 
-# WORKDIR /var/www/wordpress/
+# WORKDIR /var/www/wordpress_nginx/
 
 # # installing WP-CLI that allows one to access WordPress from the command line.
 # # https://www.hostinger.fr/tutoriels/wp-cli
@@ -21,7 +21,7 @@
 # && chmod +x wp-cli.phar \
 # && mv wp-cli.phar /usr/local/bin/wp \
 # && wp core download --allow-root \
-# && wp core config --allow-root --dbname=wordpress --dbuser=opacaud --dbpass=Pizza4fromages --dbhost=mariadb:3306 --path=/var/www/wordpress/ \
+# && wp core config --allow-root --dbname=wordpress --dbuser=opacaud --dbpass=Pizza4fromages --dbhost=mariadb:3306 --path=/var/www/wordpress_nginx/ \
 # && wp config set WP_SITE_URL 'https://opacaud.42.fr' \
 # && wp config set WP_HOME 'https://opacaud.42.fr' \
 # && chmod 644 /var/www/html/wp-config.php \

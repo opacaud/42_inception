@@ -49,32 +49,16 @@
 
 SHELL=/bin/bash
 
-# to see all colors, run
-# bash -c 'for c in {0..255}; do tput setaf $c; tput setaf $c | cat -v; echo =$c; done'
-# the first 15 entries are the 8-bit colors
+BLACK        := $(shell tput -Txterm setaf 0)
+RED          := $(shell tput -Txterm setaf 1)
+GREEN        := $(shell tput -Txterm setaf 2)
+YELLOW       := $(shell tput -Txterm setaf 3)
+BLUE  		 := $(shell tput -Txterm setaf 4)
+PURPLE       := $(shell tput -Txterm setaf 5)
+LIGHTBLUE    := $(shell tput -Txterm setaf 6)
+WHITE        := $(shell tput -Txterm setaf 7)
+RESET 		 := $(shell tput -Txterm sgr0)
 
-# define standard colors
-ifneq (,$(findstring xterm,${TERM}))
-	BLACK        := $(shell tput -Txterm setaf 0)
-	RED          := $(shell tput -Txterm setaf 1)
-	GREEN        := $(shell tput -Txterm setaf 2)
-	YELLOW       := $(shell tput -Txterm setaf 3)
-	BLUE  		 := $(shell tput -Txterm setaf 4)
-	PURPLE       := $(shell tput -Txterm setaf 5)
-	LIGHTBLUE    := $(shell tput -Txterm setaf 6)
-	WHITE        := $(shell tput -Txterm setaf 7)
-	RESET 		 := $(shell tput -Txterm sgr0)
-else
-	BLACK        := ""
-	RED          := ""
-	GREEN        := ""
-	YELLOW       := ""
-	BLUE  		 := ""
-	PURPLE       := ""
-	LIGHTBLUE    := ""
-	WHITE        := ""
-	RESET        := ""
-endif
 
 YML	= srcs/docker-compose.yml
 
@@ -104,8 +88,8 @@ up:
 		@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder on host machine ready${RESET}"
 	@sudo mkdir -p /home/opacaud/data/wordpress
 		@echo -e "\n${GREEN}/home/opacaud/data/wordpress folder on host machine ready${RESET}"
-		@echo -e "\n${GREEN}docker-compose up --detach --build --remove-orphans${RESET}\n"
-	@docker-compose -f ${YML} up --detach --build --remove-orphans
+		@echo -e "\n${GREEN}docker-compose up --detach --build${RESET}\n"
+	@docker-compose -f ${YML} up --detach --build
 		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
 		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
