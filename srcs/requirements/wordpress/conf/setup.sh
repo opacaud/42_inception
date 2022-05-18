@@ -11,13 +11,13 @@
 
 #!/bin/bash
 
-# sleep 8;
+sleep 8;
 
 if [ ! -f /var/www/wordpress/wp-config.php ]
 then
 
     wp core download --allow-root 
-    # sleep 5;
+    sleep 5;
 
     while [ ! -f /var/www/wordpress/wp-config.php ]
     do
@@ -26,11 +26,11 @@ then
 
     wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=otheruser --admin_password=otherpassword  --admin_email="admin@admin.fr" --path='/var/www/wordpress';
     wp user create --allow-root anotheruser user2@user.com --user_pass=anotherpassword --role=author
-    # wp theme install --allow-root dark-mode --activate
+    wp theme install --allow-root dark-mode --activate
 
 fi
 
 # https://linux.die.net/man/8/php-fpm
 # -F: Force to stay in foreground and ignore daemonize option from configuration file.
-php-fpm7.3 -F
-# php-fpm7.3 --nodaemonize
+# php-fpm7.3 -F
+php-fpm7.3 --nodaemonize

@@ -39,7 +39,7 @@ services:
       - "443:443"
     restart: unless-stopped
     volumes:
-      - wordpress_nginx_volume:/var/www/wordpress_nginx
+      - wordpress_volume:/var/www/wordpress
 
   wordpress:
     build: requirements/wordpress
@@ -52,7 +52,7 @@ services:
       - inception
     restart: unless-stopped
     volumes:
-      - wordpress_nginx_volume:/var/www/wordpress_nginx
+      - wordpress_volume:/var/www/wordpress
 
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#network-configuration-reference
 
@@ -69,12 +69,12 @@ volumes:
       type: none
       o: 'bind'
       device: /home/opacaud/data/mariadb
-  wordpress_nginx_volume:
+  wordpress_volume:
     driver: local
     driver_opts:
       type: none
       o: 'bind'
-      device: /home/opacaud/data/wordpress_nginx
+      device: /home/opacaud/data/wordpress
 
 
 
