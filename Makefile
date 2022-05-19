@@ -81,15 +81,19 @@ ls:
 
 # https://docs.docker.com/compose/reference/up/
 up:
-	@sudo mkdir -p /home/opacaud/data/mariadb
 		@echo -e "\n\n${GREEN}--------------------------------------------------------------------------------${RESET}"
 		@echo -e "${GREEN}---------------------------------------UP---------------------------------------${RESET}"
 		@echo -e "${GREEN}--------------------------------------------------------------------------------\n${RESET}"
+	@sudo service nginx stop
+	@sudo service mysql stop
+		@echo -e "\n${GREEN}nginx and mysql automatic services stopped${RESET}" 
+	@sudo mkdir -p /home/opacaud/data/mariadb
 		@echo -e "\n${GREEN}/home/opacaud/data/mariadb folder on host machine ready${RESET}"
 	@sudo mkdir -p /home/opacaud/data/wordpress
 		@echo -e "\n${GREEN}/home/opacaud/data/wordpress folder on host machine ready${RESET}"
 		@echo -e "\n${GREEN}docker-compose up --detach --build${RESET}\n"
 	@docker-compose -f ${YML} up --detach --build
+	@docker system prune -f > /dev/null 2>&1
 		@echo -e "\n${GREEN}DOCKER LS${RESET}\n"
 		@echo -e "\n${GREEN}---> IMAGES${RESET}\n"
 	@docker image ls
