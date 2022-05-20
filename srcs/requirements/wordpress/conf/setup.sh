@@ -14,27 +14,13 @@
 if [ ! -f /var/www/wordpress/wp-config.php ]
 then
     wp core download --allow-root 
-    wp core config --allow-root --dbname=${DB_NAME} --dbuser=${WP_USER} --dbpass=${WP_PASS} --dbhost=${WP_HOST} --path=${WP_PATH}
-    echo "\n 0 \n"
+    wp core config --allow-root --dbname=${DB_NAME} --dbuser=${MYSQL_USERNAME} --dbpass=${MYSQL_USER_PWD} --dbhost=${DB_HOST} --path=${WP_PATH}
 fi
 
-echo "\n 1 \n"
-
-wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=otheruser --admin_password=otherpassword  --admin_email="admin@admin.fr" --path='/var/www/wordpress';
-
-echo "\n 2 \n"
-
-wp user create --allow-root opacaud opacaud@user.com --user_pass=Pizza4fromages --role=administrator
-
-echo "\n 3 \n"
-
-wp user create --allow-root anotheruser anotheruser2@user.com --user_pass=anotherpassword --role=author
-
-echo "\n 4 \n"
+wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=${MYSQL_USERNAME} --admin_password=${MYSQL_USER_PWD}  --admin_email="opacaud@user.com" --path=${WP_PATH};
+# wp user create --allow-root ${MYSQL_USERNAME} opacaud@user.com --user_pass=${MYSQL_USER_PWD} --role=administrator
+wp user create --allow-root ${WP_USER} anotheruser@user.com --user_pass=${WP_UPWD} --role=author
 
 # https://linux.die.net/man/8/php-fpm
 # -F: Force to stay in foreground and ignore daemonize option from configuration file.
 php-fpm7.3 -F
-# php-fpm7.3 --nodaemonize
-
-echo "\n 5 \n"

@@ -16,8 +16,10 @@ services:
     build:
       context: requirements/mariadb
       args:
+        - DB_NAME
         - MYSQL_ROOT_PWD
         - MYSQL_BOSS_PWD
+        - MYSQL_USERNAME
         - MYSQL_USER_PWD
     container_name: mariadb
     env_file:
@@ -33,10 +35,10 @@ services:
       context: requirements/wordpress
       args:
         - DB_NAME
-        - WP_USER
-        - WP_PASS
-        - WP_HOST
+        - DB_HOST
         - WP_PATH
+        - WP_USER
+        - WP_UPWD
     container_name: wordpress
     depends_on:
       - mariadb

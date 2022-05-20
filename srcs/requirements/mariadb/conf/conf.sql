@@ -11,15 +11,15 @@ FLUSH PRIVILEGES;
 -- https://mariadb.com/kb/en/create-database/
 -- "CREATE DATABASE creates a database with the given name."
 -- "When the IF NOT EXISTS clause is used, MariaDB will return a warning instead of an error if the specified database already exists."
-CREATE DATABASE IF NOT EXISTS wordpress;
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
 
 -- https://mariadb.com/kb/en/create-user/
 -- "Account names have both a user name component and a host name component, and are specified as 'user_name'@'host_name'"
-CREATE USER 'opacaud'@'localhost';
+CREATE USER '$MYSQL_USERNAME'@'localhost';
 
 -- https://mariadb.com/kb/en/set-password/
 -- "The SET PASSWORD statement assigns a password to an existing MariaDB user account."
-SET PASSWORD FOR 'opacaud'@'localhost' = PASSWORD('$MYSQL_USER_PWD');
+SET PASSWORD FOR '$MYSQL_USERNAME'@'localhost' = PASSWORD('$MYSQL_USER_PWD');
 
 -- https://mariadb.com/kb/en/grant/
 -- usage: "GRANT priv_type [...] ON [...] priv_level TO user_specification [user_options]"
@@ -27,8 +27,8 @@ SET PASSWORD FOR 'opacaud'@'localhost' = PASSWORD('$MYSQL_USER_PWD');
 -- priv_level: " * | *.* | db_name.* | db_name.tbl_name | tbl_name | db_name.routine_name [...] Database privileges priv_type are granted using db_name.* for priv_level, or using just * to use default database."
 -- user_specification: "username [authentication_option]"
 -- authentication_option: IDENTIFIED BY 'password'
-GRANT ALL PRIVILEGES ON wordpress.* TO 'opacaud'@'localhost' IDENTIFIED BY '$MYSQL_USER_PWD';
-GRANT ALL ON wordpress.* TO 'opacaud'@'%' IDENTIFIED BY '$MYSQL_USER_PWD';
+GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_USER_PWD';
+GRANT ALL ON wordpress.* TO '$MYSQL_USERNAME'@'%' IDENTIFIED BY '$MYSQL_USER_PWD';
 
 -- https://mariadb.com/kb/en/flush/#:~:text=The%20FLUSH%20statement%20clears%20or,statement%20is%20similar%20to%20FLUSH%20.
 -- "The FLUSH statement clears or reloads various internal caches used by MariaDB."
@@ -50,12 +50,9 @@ GRANT ALL ON *.* TO 'boss'@'%' WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
 
--- https://mariadb.com/kb/en/alter-user/
--- "The ALTER USER statement modifies existing MariaDB accounts."
--- ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PWD';
-
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PWD');
 
 FLUSH PRIVILEGES;
 
+-- just printing to make sure users have been created
 SELECT user, host, password FROM mysql.user;

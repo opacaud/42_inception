@@ -8,8 +8,10 @@ RUN apt-get update \
 WORKDIR /tmp/mariadb/
 
 # creating an env variable
+ARG DB_NAME
 ARG MYSQL_ROOT_PWD
 ARG MYSQL_BOSS_PWD
+ARG MYSQL_USERNAME
 ARG MYSQL_USER_PWD
 
 # copying everything in the conf folder on the host machine in the working directory
@@ -20,8 +22,10 @@ COPY conf/ /tmp/mariadb/
 # starting sql
 # configuring sql
 # allowing remote connections to mysql server
-RUN sed -i "s/\$MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/conf.sql \
+RUN sed -i "s/\$DB_NAME/$DB_NAME/g" /tmp/mariadb/conf.sql \
+&& sed -i "s/\$MYSQL_ROOT_PWD/$MYSQL_ROOT_PWD/g" /tmp/mariadb/conf.sql \
 && sed -i "s/\$MYSQL_BOSS_PWD/$MYSQL_BOSS_PWD/g" /tmp/mariadb/conf.sql \
+&& sed -i "s/\$MYSQL_USERNAME/$MYSQL_USERNAME/g" /tmp/mariadb/conf.sql \
 && sed -i "s/\$MYSQL_USER_PWD/$MYSQL_USER_PWD/g" /tmp/mariadb/conf.sql \
 && mkdir -p /run/mysql \
 && apt-get install -y mariadb-server mariadb-client \
