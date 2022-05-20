@@ -17,7 +17,8 @@ then
     wp core config --allow-root --dbname=${DB_NAME} --dbuser=${MYSQL_USERNAME} --dbpass=${MYSQL_USER_PWD} --dbhost=${DB_HOST} --path=${WP_PATH}
 fi
 
-wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=${MYSQL_USERNAME} --admin_password=${MYSQL_USER_PWD}  --admin_email="opacaud@user.com" --path=${WP_PATH};
+wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=${MYSQL_USERNAME} --admin_password=${MYSQL_USER_PWD}  --admin_email="opacaud@user.com" --skip-email --skip-packages --skip-themes --skip-plugins --path=${WP_PATH};
+
 # wp user create --allow-root ${MYSQL_USERNAME} opacaud@user.com --user_pass=${MYSQL_USER_PWD} --role=administrator
 wp user create --allow-root ${WP_USER} anotheruser@user.com --user_pass=${WP_UPWD} --role=author
 

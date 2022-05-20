@@ -55,8 +55,8 @@ services:
     container_name: nginx
     depends_on:
       - wordpress
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     networks:
       - inception
     ports:
