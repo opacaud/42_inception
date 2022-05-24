@@ -28,8 +28,11 @@ RUN apt-get update \
 
 WORKDIR /tmp/nginx/
 
+# checking that the syntax of configuration file is okay
+# RUN nginx -t
+
 # copying the configuration file in container
-COPY conf/nginx.conf /tmp/nginx/
+COPY ./conf/nginx.conf /tmp/nginx/.
 
 # forwarding request and error logs to docker log collector
 # moving the configuration file to the right spot
@@ -40,9 +43,6 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 && rm -f /etc/nginx/sites-available/default \
 && mv /tmp/nginx/nginx.conf /etc/nginx/sites-available/ \
 && ln -sf /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
-
-# checking that the syntax of configuration file is okay
-# RUN nginx -t
 
 EXPOSE 443
 

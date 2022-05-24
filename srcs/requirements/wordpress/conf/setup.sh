@@ -18,9 +18,9 @@ then
 fi
 
 # https://developer.wordpress.org/cli/commands/core/install/
-wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=${MYSQL_USERNAME} --admin_password=${MYSQL_USER_PWD} --admin_email="opacaud@user.com" --skip-email
+wp core install --allow-root --url='opacaud.42.fr' --title='wordpress' --admin_user=${MYSQL_USERNAME} --admin_password=${MYSQL_USER_PWD} --admin_email="opacaud@user.com" --skip-email --skip-plugins --skip-themes --skip-packages
 
-wp user create --allow-root ${WP_USER} anotheruser@user.com --role=author --user_pass=${WP_UPWD}
+wp user create --allow-root ${WP_USER} anotheruser@user.com --role=author --user_pass=${WP_UPWD} --skip-plugins --skip-themes --skip-packages
 
 # https://linux.die.net/man/8/php-fpm
 # -F: Force to stay in foreground and ignore daemonize option from configuration file.
