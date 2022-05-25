@@ -35,7 +35,7 @@ RUN sed -i "s/\$DB_NAME/$DB_NAME/g" /tmp/mariadb/conf.sql \
 && sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/' -i /etc/mysql/mariadb.conf.d/50-server.cnf \
 && chown -R mysql:mysql /var/lib/mysql
 
-# expose port 3306
+# exposing port 3306
 EXPOSE 3306
 
 # command to launch IN the mariadb container: sql daemon to react to commands

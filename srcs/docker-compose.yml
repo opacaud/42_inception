@@ -3,13 +3,15 @@
 version: '3'
 
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#build
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#context
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#args
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#container_name
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#depends_on
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#env_file
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#networks
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#restart
 # https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes
-# https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
-# https://docs.docker.com/compose/compose-file/compose-file-v3/#depends_on
 
 services:
   mariadb:
@@ -22,6 +24,7 @@ services:
         - MYSQL_USERNAME
         - MYSQL_USER_PWD
     container_name: mariadb
+    image: mariadb:inception
     env_file:
       - .env
     networks:
@@ -40,6 +43,7 @@ services:
         - WP_USER
         - WP_UPWD
     container_name: wordpress
+    image: wordpress:inception
     depends_on:
       - mariadb
     env_file:
@@ -53,10 +57,7 @@ services:
   nginx:
     build: requirements/nginx
     container_name: nginx
-    depends_on:
-      - wordpress
-    # env_file:
-    #   - .env
+    image: nginx:inception
     networks:
       - inception
     ports:
@@ -90,28 +91,31 @@ volumes:
 
 
 
-#########################################################################
-# -----------------------------------------
+#######################
+#                     #
+#   COMMAND SUMMARY   #
+#                     #
+#######################
 
-# LISTER CONTAINERS
+# LIST CONTAINERS
 
 # docker ps -a
 
 # -----------------------------------------
 
-# LISTER IMAGES
+# LIST IMAGES
 
 # docker image ls
 
 # -----------------------------------------
 
-# VOIR HISTORIQUE IMAGE
+# SEE HISTORY IMAGE
 
 # docker history image_ID
 
 # -----------------------------------------
 
-# CREER ET/OU LANCER UN CONTAINER
+# CREATE AND/OR LAUNCH A CONTAINER
 
 # docker create --name container_name image:version
 # docker start container_name
@@ -122,13 +126,13 @@ volumes:
 
 # -----------------------------------------
 
-# INSPECTER UN CONTAINER
+# INSPECT A CONTAINER
 
 # docker inspect container_name
 
 # -----------------------------------------
 
-# EXECUTER UN CONTAINER
+# EXECUTE A CONTAINER
 
 # docker exec -ti (tty) container_name sh (shell, app to run once container started)
 
@@ -140,7 +144,7 @@ volumes:
 
 # -----------------------------------------
 
-# CREER UN VOLUME DIRECTEMENT DANS RUN ET CHOISIR L'EMPLACEMENT DANS HOST
+# CREATE A VOLUME DIRECTLY IN A RUN COMMAND AND CHOOSE THE MOUNT POINT IN HOST
 
 # docker run -tid -p 8080:80 -v /srv/data/nginx/to/share/on/host:/usr/share/nginx/html/to/share/in/container --name container_name image:version
 
@@ -148,7 +152,7 @@ volumes:
 
 # -----------------------------------------
 
-# GERER LES VOLUMES
+# HANDLE VOLUMES
 
 # docker volume create/inspect/ls/prune/rm
 
@@ -163,7 +167,7 @@ volumes:
 
 # -----------------------------------------
 
-# VARIABLES D'ENV
+# ENV VARIABLES
 
 # docker run -tid --name container_name --env MYVARIABLE="123456" image:version
 
@@ -202,7 +206,7 @@ volumes:
 
 # -----------------------------------------
 
-# DOCKER COMPOSE
+# DOCKER COMPOSE COMMANDS
 
 # docker-compose build
 
