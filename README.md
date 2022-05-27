@@ -17,25 +17,13 @@ I learned about docker, dockerfiles, docker-compose, wordpress.
 </br>
 </br>
 
-Run ```make```
-</br>
-</br>
-
-Wait...
-</br>
-</br>
-
-Once all three images are created and containers are up, open a navigator window
-</br>
-</br>
-
-Go to https://opacaud.42.fr
-</br>
-</br>
-
-Depending on the navigator you are using, the following steps may slightly differ but the spirit remains the same: you have to accept the risk to go on a site self-certified
-* click on "Advanced"
-* accept the risk and continue to https://opacaud.42.fr
+* Run ```make```
+* Wait...
+* Once all three images are created and containers are up, open a navigator window
+* Go to https://opacaud.42.fr
+* Depending on the navigator you are using, the following steps may slightly differ but the spirit remains the same: you have to accept the risk to go on a site self-certified
+  * click on "Advanced"
+  * accept the risk and continue to https://opacaud.42.fr
 </br>
 
 The wordpress homepage appears.
