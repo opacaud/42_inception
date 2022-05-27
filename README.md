@@ -44,4 +44,3 @@ I can then simply send SQL requests:
 * SHOW tables;
 * SELECT comment_author,comment_content FROM wp_comments;
 </br>
-</br>
