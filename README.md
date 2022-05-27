@@ -11,22 +11,31 @@ I designed my Makefile so that it calls ```docker-compose -f docker-compose.yml 
 </br>
 
 The point is to set up a wordpress with our own NGINX server and mariadb SQL database.
+</br>
+
 I learned about docker, dockerfiles, docker-compose, wordpress.
 </br>
 </br>
 
 Run ```make```
 </br>
+</br>
+
 Wait...
 </br>
+</br>
+
 Once all three images are created and containers are up, open a navigator window
 </br>
+</br>
+
 Go to https://opacaud.42.fr
 </br>
+</br>
+
 Depending on the navigator you are using, the following steps may slightly differ but the spirit remains the same: you have to accept the risk to go on a site self-certified
 * click on "Advanced"
 * accept the risk and continue to https://opacaud.42.fr
-</br>
 </br>
 
 The wordpress homepage appears.
@@ -39,6 +48,8 @@ To access the containers, you have to go back to the terminal and run ```docker 
 </br>
 
 That is for instance how I check my database. By lauching bash in the mariadb container, connecting to mariadb with -u root -p and entering the right password.
+</br>
+
 I can then simply send SQL requests:
 * SHOW databases;
 * USE wordpress;
