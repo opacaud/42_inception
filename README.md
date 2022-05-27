@@ -10,10 +10,10 @@
 I designed my Makefile so that it calls ```docker-compose -f docker-compose.yml up --detach --build```
 </br>
 
-The point is to set up a wordpress with our own NGINX server and mariadb SQL database.
+The point is to **set up a wordpress with our own NGINX server and mariadb SQL database**.
 </br>
 
-I learned about docker, dockerfiles, docker-compose, wordpress.
+I learned about **docker, dockerfiles, docker-compose, wordpress**.
 </br>
 </br>
 
@@ -32,10 +32,10 @@ The wordpress homepage appears.
 I can then log in with either my author or my admin account. I can comment, edit the site, the articles.
 </br>
 
-To access the containers, you have to go back to the terminal and run ```docker exec -ti <container_name> bash```.
+To access the containers, one would have to go back to the terminal and run ```docker exec -ti <container_name> bash```.
 </br>
 
-That is for instance how I check my database. By lauching bash in the mariadb container, connecting to mariadb with -u root -p and entering the right password.
+That is for instance how I checked my database. By lauching bash in the mariadb container, connecting to mariadb with -u root -p and entering the right password.
 </br>
 
 I can then simply send SQL requests:
