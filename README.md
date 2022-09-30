@@ -1,6 +1,6 @@
 # Project 11: 42_inception
 
-## Setting up three containers: wordpress, mariadb and nginx using dockerfiles and docker-compose, in a VM Ubuntu.
+## Setting up three Docker containers: wordpress, mariadb and nginx using dockerfiles and docker-compose, in an Ubuntu VM.
 </br>
 
 [![opacaud's 42 inception Score](https://badge42.vercel.app/api/v2/cl2g6sk3a013609l6l237136q/project/2487499)](https://github.com/JaeSeoKim/badge42)
